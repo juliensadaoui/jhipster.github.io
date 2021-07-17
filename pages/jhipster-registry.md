@@ -17,7 +17,6 @@ The JHipster Registry has three main purposes:
 
 - It is a [Eureka server](https://cloud.spring.io/spring-cloud-netflix/spring-cloud-netflix.html), that provides as a discovery server for applications. This server maintains and distributes a dynamic list of available application instances that are then used by the microservices to do HTTP requests routing and load balancing.
 - It is a [Spring Cloud Config server](https://cloud.spring.io/spring-cloud-config/spring-cloud-config.html), that provide runtime configuration to all applications.
-- It is an administration server, with dashboards to monitor and manage applications.
 
 All those features are packaged into one convenient application with a modern Angular-based user interface.
 
@@ -131,51 +130,6 @@ For example: `curl localhost:8761/config/encrypt -d mypassword`
 The cipher text must be placed in any `*.yml` configuration file, in the form `password= '{cipher}myciphertextafterencryotion'` and it will be decrypted by the config server before sending it to its clients. This way your configuration files (stored in Git or stored "natively" on your filesystem) do not have plain text values.
 
 For more information, please refer to Spring Cloud Config's [Encryption and Decryption documentation](http://cloud.spring.io/spring-cloud-config/spring-cloud-config.html#_encryption_and_decryption).
-
-## <a name="dashboards"></a> Administration dashboards
-
-The JHipster Registry provides administration dashboards, which are used for all application types. As soon as an application registers on the Eureka server, it will become available in the dashboards.
-
-In order to access sensitive information from the applications, the JHipster Registry will use a JWT token (this is why the JHipster Registry only works for applications using JWT). The JWT key used to sign the request should be the same for the applications and the JHipster Registry: as by default the JHipster Registry configures applications through Spring Cloud Config, this should work out-of-the-box, as it will send the same key to all applications.
-
-### The metrics dashboard
-
-![]({{ site.url }}/images/jhipster-registry-metrics.png)
-
-The metrics dashboard uses Micrometer to give a detailed view of the application performance.
-
-It gives metrics on:
-
-- the JVM
-- HTTP requests
-- cache usage
-- database connection pool
-
-By clicking on the Expand button next to the JVM thread metrics, you will get a stacktrace of the running application, which is very useful to find out blocked threads.
-
-Note: As we switched the JHipster Registry to monitor metrics coming from Micrometer instead of Dropwizard metrics, it implies that all JHipster application generated with version 5.7.2 or older should be migrated to Micrometer to be monitored with the JHipster Registry. If you don't want to migrate your applications, please use JHipster Registry v4.0.6 or older.
-
-To migrate your applications, you can use the [JHipster upgrade sub-generator]({{ site.url }}/upgrading-an-application/).
-
-### The health dashboard
-
-![]({{ site.url }}/images/jhipster-registry-health.png)
-
-The health dashboard uses Spring Boot Actuator's health endpoint to give health information on various parts of the application. 
-Many health checks are provided out-of-the-box by Spring Boot Actuator, and you can add application-specific health checks.
-
-### The configuration dashboard
-
-![]({{ site.url }}/images/jhipster-registry-configuration.png)
-
-The configuration dashboard uses Spring Boot Actuator's configuration endpoint to give a full view of the Spring configuration of the current application.
-
-### The logs dashboard
-
-![]({{ site.url }}/images/jhipster-registry-logs.png)
-
-The logs dashboard allows to manage at runtime the Logback configuration of the running application. 
-You can change the log level of Java package by clicking on a button, which is very convenient both in development and in production.
 
 ## <a name="security"></a> Securing the JHipster Registry
 
